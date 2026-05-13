@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../shop/screens/shop_screen.dart';
+import '../../shop/screens/main_layout.dart';
 import '../widgets/auth_components.dart';
 import '../services/mock_auth_service.dart';
 import 'signup_screen.dart';
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       Navigator.pushReplacement(
         context,
-        _createFadeRoute(const ShopScreen()),
+        _createFadeRoute(const MainLayout()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

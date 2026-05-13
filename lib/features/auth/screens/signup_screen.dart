@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../shop/screens/shop_screen.dart';
+import '../../shop/screens/main_layout.dart';
 import '../widgets/auth_components.dart';
 import '../services/mock_auth_service.dart';
 
@@ -68,7 +68,7 @@ class _SignupScreenState extends State<SignupScreen> {
       );
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const ShopScreen()),
+        MaterialPageRoute(builder: (context) => const MainLayout()),
         (Route<dynamic> route) => false,
       );
     } else {

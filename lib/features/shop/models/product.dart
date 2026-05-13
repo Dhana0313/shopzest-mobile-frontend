@@ -1,32 +1,27 @@
+import 'package:flutter/material.dart';
+
 class Product {
   final String id;
   final String name;
+  final String brand;
   final double price;
-  final String imageUrl;
+  final double? oldPrice;
+  final double rating;
+  final String reviews;
+  final String emoji;
+  final Color bgColor;
+  final String? discountBadge;
 
   Product({
-    required this.id, 
-    required this.name, 
-    required this.price, 
-    required this.imageUrl
+    required this.id,
+    required this.name,
+    required this.brand,
+    required this.price,
+    this.oldPrice,
+    required this.rating,
+    required this.reviews,
+    required this.emoji,
+    required this.bgColor,
+    this.discountBadge,
   });
-
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      price: (json['price'] as num).toDouble(), 
-      imageUrl: json['imageUrl'] as String,
-    );
-  }
-
-  
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'price': price,
-      'imageUrl': imageUrl,
-    };
-  }
 }
