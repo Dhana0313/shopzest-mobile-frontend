@@ -183,7 +183,7 @@ class ProductCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color.fromARGB(255, 239, 239, 240),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: const Color(0xFFEEEEF5)),
         ),
@@ -193,7 +193,7 @@ class ProductCard extends StatelessWidget {
             Container(
               height: 110,
               decoration: BoxDecoration(
-                color: product.bgColor,
+                color: const Color.fromARGB(255, 215, 216, 214),
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
               ),
               child: Stack(
@@ -230,15 +230,15 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(product.name, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF1A1A2E)), maxLines: 1, overflow: TextOverflow.ellipsis),
+                  Text(product.name, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black), maxLines: 1, overflow: TextOverflow.ellipsis),
                   const SizedBox(height: 4),
-                  Text(product.brand, style: const TextStyle(fontSize: 10, color: Color(0xFF9898B5))),
+                  Text(product.brand, style: const TextStyle(fontSize: 10, color: Colors.black)),
                   const SizedBox(height: 8),
                   Row(
                     children: [
                       const Icon(Icons.star, color: Color(0xFFFFC107), size: 12),
                       const SizedBox(width: 4),
-                      Text('${product.rating} (${product.reviews})', style: const TextStyle(fontSize: 10, color: Color(0xFF9898B5))),
+                      Text('${product.rating} (${product.reviews})', style: const TextStyle(fontSize: 10, color: Colors.black)),
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -248,9 +248,9 @@ class ProductCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('\$${product.price}', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF1A1A2E))),
+                          Text('\$${product.price}', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black)),
                           if (product.oldPrice != null)
-                            Text('\$${product.oldPrice}', style: const TextStyle(fontSize: 10, color: Color(0xFF9898B5), decoration: TextDecoration.lineThrough)),
+                            Text('\$${product.oldPrice}', style: const TextStyle(fontSize: 10, color: Colors.black, decoration: TextDecoration.lineThrough)),
                         ],
                       ),
                       Container(
@@ -266,6 +266,102 @@ class ProductCard extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class PromoBanner extends StatelessWidget {
+  final String tag;
+  final String title;
+  final String buttonText;
+  final String emoji;
+  final List<Color> gradientColors;
+  final VoidCallback onClaim;
+
+  const PromoBanner({
+    super.key,
+    required this.tag,
+    required this.title,
+    required this.buttonText,
+    required this.emoji,
+    required this.gradientColors,
+    required this.onClaim,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(20, 32, 20, 8),
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        gradient: LinearGradient(
+          colors: gradientColors,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Text(
+                    tag,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    height: 1.2,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                GestureDetector(
+                  onTap: onClaim,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFF6B35),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Text(
+                      buttonText,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            emoji,
+            style: const TextStyle(fontSize: 72),
+          ),
+        ],
       ),
     );
   }

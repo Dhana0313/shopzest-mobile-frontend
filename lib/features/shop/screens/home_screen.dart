@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final displayedNewArrivals = mockNewArrivals.take(4).toList();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F6FF),
+      backgroundColor: const Color.fromARGB(255, 217, 214, 241),
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -164,7 +164,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
-
+                    PromoBanner(
+                      tag: 'MEMBER EXCLUSIVE',
+                      title: 'Get 20% Extra\nOff Today',
+                      buttonText: 'Claim Code',
+                      emoji: '🎟️',
+                      gradientColors: const [Color(0xFF1A1A2E), Color(0xFF16213E)],
+                      onClaim: () {},
+                    ),
                     SectionHeader(
                       title: 'New Arrivals ✨',
                       onSeeAll: () {

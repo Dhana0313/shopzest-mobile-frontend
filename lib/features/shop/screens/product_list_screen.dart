@@ -15,19 +15,19 @@ class ProductListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F6FF),
+      backgroundColor: const Color.fromARGB(255, 217, 214, 241),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF1A1A2E),
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1A1A2E)),
+          icon: const Icon(Icons.arrow_back, color: Colors.deepOrangeAccent),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           title,
           style: const TextStyle(
-            color: Color(0xFF1A1A2E),
+            color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
