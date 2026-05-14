@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
 import '../screens/product_detail_screen.dart';
+import '../screens/product_list_screen.dart';
+import '../../../core/mock_data.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -106,32 +108,69 @@ class CategoryList extends StatelessWidget {
         itemBuilder: (context, index) {
           final cat = categories[index];
           final isActive = cat['active'] as bool;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            child: Column(
-              children: [
-                Container(
-                  width: 52,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    color: isActive ? const Color(0xFFFF6B35) : cat['color'] as Color,
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Center(
-                    child: Text(cat['icon'] as String, style: const TextStyle(fontSize: 22)),
+          final label = cat['label'] as String;
+          
+          return GestureDetector(
+            onTap: () {
+              List<Product> categoryProducts;
+              
+              switch (label) {
+                case 'Shoes':
+                  categoryProducts = mockShoes;
+                  break;
+                case 'Fashion':
+                  categoryProducts = mockFashion;
+                  break;
+                case 'Tech':
+                  categoryProducts = mockTech;
+                  break;
+                case 'Home':
+                  categoryProducts = mockHome;
+                  break;
+                case 'Beauty':
+                  categoryProducts = mockBeauty;
+                  break;
+                default:
+                  categoryProducts = mockTrendingProducts;
+              }
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductListScreen(
+                    title: label,
+                    products: categoryProducts,
                   ),
                 ),
-                const SizedBox(height: 6),
-                Text(
-                  cat['label'] as String,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: isActive ? const Color(0xFFFF6B35) : const Color(0xFF4A4A6A),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              child: Column(
+                children: [
+                  Container(
+                    width: 52,
+                    height: 52,
+                    decoration: BoxDecoration(
+                      color: isActive ? const Color(0xFFFF6B35) : cat['color'] as Color,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Center(
+                      child: Text(cat['icon'] as String, style: const TextStyle(fontSize: 22)),
+                    ),
                   ),
-                )
-              ],
+                  const SizedBox(height: 6),
+                  Text(
+                    label,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: isActive ? const Color(0xFFFF6B35) : const Color(0xFF4A4A6A),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         },
@@ -139,7 +178,6 @@ class CategoryList extends StatelessWidget {
     );
   }
 }
-
 class SectionHeader extends StatelessWidget {
   final String title;
   final VoidCallback? onSeeAll; 
@@ -154,7 +192,7 @@ class SectionHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1A1A2E))),
-          if (onSeeAll != null) // Only show the button if a function is provided
+          if (onSeeAll != null)
             GestureDetector(
               onTap: onSeeAll,
               child: const Text('See all', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFFFF6B35))),

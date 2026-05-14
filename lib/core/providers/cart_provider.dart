@@ -34,7 +34,7 @@ class CartProvider with ChangeNotifier {
     return total;
   }
 
-  double get discount => subtotal > 0 ? 94.80 : 0.0;
+  double get discount => subtotal > 0 ? 10 : 0.0;
 
   double get total => subtotal > 0 ? subtotal - discount : 0.0;
 

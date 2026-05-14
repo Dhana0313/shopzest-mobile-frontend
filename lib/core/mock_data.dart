@@ -288,3 +288,40 @@ final List<Map<String, String>> mockCarouselData = [
     'title': 'Designer Bags\n& Accessories',
   },
 ];
+
+final List<Product> mockShoes = [
+  Product(id: 's1', name: 'Air Max Streak', brand: 'Nike · Orange', price: 89.99, oldPrice: 129.99, rating: 4.5, reviews: '2.1k', emoji: '👟', bgColor: const Color(0xFFFFF0EB), discountBadge: '-30%'),
+  Product(id: 's2', name: 'Classic Loafers', brand: 'Clarks · Brown', price: 120.00, rating: 4.7, reviews: '840', emoji: '👞', bgColor: const Color(0xFFEBF4FF)),
+  Product(id: 's3', name: 'Running Shoes', brand: 'Adidas · Boost', price: 140.00, oldPrice: 160.00, rating: 4.8, reviews: '1.5k', emoji: '🏃‍♂️', bgColor: const Color(0xFFEDFFF4), discountBadge: 'SALE'),
+  Product(id: 's4', name: 'Hiking Boots', brand: 'Timberland', price: 180.00, rating: 4.9, reviews: '3k', emoji: '🥾', bgColor: const Color(0xFFFFF5EB)),
+];
+
+final List<Product> mockFashion = [
+  Product(id: 'f1', name: 'Summer Dress', brand: 'Zara · Floral', price: 45.99, oldPrice: 59.99, rating: 4.5, reviews: '900', emoji: '👗', bgColor: const Color(0xFFFFF0EB), discountBadge: '-20%'),
+  Product(id: 'f2', name: 'Denim Jacket', brand: 'Levi\'s · Blue', price: 89.00, rating: 4.8, reviews: '2.2k', emoji: '🧥', bgColor: const Color(0xFFEBF4FF)),
+  Product(id: 'f3', name: 'Basic T-Shirt', brand: 'Uniqlo · White', price: 14.99, rating: 4.9, reviews: '5k+', emoji: '👕', bgColor: const Color(0xFFF4EBFF)),
+  Product(id: 'f4', name: 'Running Shorts', brand: 'Under Armour', price: 35.00, rating: 4.5, reviews: '40', emoji: '🩳', bgColor: const Color(0xFFEDFFF4)),
+  Product(id: 'f5', name: 'Winter Beanie', brand: 'Carhartt · Brown', price: 19.99, rating: 4.8, reviews: '400', emoji: '🧢', bgColor: const Color(0xFFFFF5EB)),
+];
+
+final List<Product> mockTech = [
+  Product(id: 'tc1', name: 'ANC Pro Headphones', brand: 'Sony · Midnight', price: 199.99, oldPrice: 249.99, rating: 4.0, reviews: '980', emoji: '🎧', bgColor: const Color(0xFFEBF4FF), discountBadge: '-20%'),
+  Product(id: 'tc2', name: 'Smart Watch X5', brand: 'Apple · Silver', price: 329.00, rating: 5.0, reviews: '4.2k', emoji: '⌚', bgColor: const Color(0xFFEDFFF4)),
+  Product(id: 'tc3', name: 'Mechanical Keyboard', brand: 'Keychron · Grey', price: 110.00, rating: 4.8, reviews: '1.2k', emoji: '⌨️', bgColor: const Color(0xFFF4EBFF)),
+  Product(id: 'tc4', name: 'Wireless Mouse', brand: 'Logitech · Black', price: 45.00, rating: 4.6, reviews: '3.4k', emoji: '🖱️', bgColor: const Color(0xFFFFF0EB)),
+  Product(id: 'tc5', name: 'Mini Drone', brand: 'DJI · Grey', price: 299.00, rating: 4.9, reviews: '120', emoji: '🚁', bgColor: const Color(0xFFFFF5EB)),
+];
+
+final List<Product> mockHome = [
+  Product(id: 'h1', name: 'Coffee Maker Pro', brand: 'Breville · Steel', price: 450.00, oldPrice: 500.00, rating: 4.9, reviews: '8k', emoji: '☕', bgColor: const Color(0xFFEBF4FF), discountBadge: '-10%'),
+  Product(id: 'h2', name: 'Desk Lamp', brand: 'Xiaomi · White', price: 25.00, rating: 4.3, reviews: '800', emoji: '💡', bgColor: const Color(0xFFF4EBFF)),
+  Product(id: 'h3', name: 'Ceramic Planter', brand: 'IKEA · White', price: 12.99, rating: 4.2, reviews: '15', emoji: '🪴', bgColor: const Color(0xFFEDFFF4)),
+  Product(id: 'h4', name: 'Cozy Armchair', brand: 'West Elm · Grey', price: 350.00, rating: 4.8, reviews: '320', emoji: '🪑', bgColor: const Color(0xFFFFF0EB)),
+];
+
+final List<Product> mockBeauty = [
+  Product(id: 'b1', name: 'Matte Lipstick', brand: 'MAC · Ruby', price: 22.00, rating: 4.9, reviews: '5k+', emoji: '💄', bgColor: const Color(0xFFFFF0EB)),
+  Product(id: 'b2', name: 'Nail Polish Set', brand: 'OPI · Pastels', price: 35.00, oldPrice: 45.00, rating: 4.6, reviews: '890', emoji: '💅', bgColor: const Color(0xFFF4EBFF), discountBadge: 'SALE'),
+  Product(id: 'b3', name: 'Face Serum', brand: 'The Ordinary', price: 15.00, rating: 4.8, reviews: '12k', emoji: '✨', bgColor: const Color(0xFFEDFFF4)),
+  Product(id: 'b4', name: 'Signature Perfume', brand: 'Chanel', price: 135.00, rating: 4.9, reviews: '2.1k', emoji: '🎀', bgColor: const Color(0xFFFFF5EB)),
+];
