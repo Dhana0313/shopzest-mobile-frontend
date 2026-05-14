@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
+import '../../features/shop/screens/home_screen.dart';
+import '../../features/cart/screens/cart_screen.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -13,7 +14,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   final List<Widget> _screens = [
     const HomeScreen(),
-    const Center(child: Text('Cart Screen Pending')),
+    const CartScreen(),
     const Center(child: Text('Profile Screen Pending')),
   ];
 

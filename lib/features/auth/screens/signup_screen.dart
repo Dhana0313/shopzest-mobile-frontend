@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../shop/screens/main_layout.dart';
+import '../../../core/layout/main_layout.dart';
 import '../widgets/auth_components.dart';
 import '../services/mock_auth_service.dart';
 
