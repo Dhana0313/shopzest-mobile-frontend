@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 import 'package:provider/provider.dart';
 import '../../../core/providers/cart_provider.dart';
+import '../../../core/utils/custom_notification.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final Product product;
@@ -513,14 +514,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           _quantity,
                         );
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              '${widget.product.name} added to cart!',
-                            ),
-                            backgroundColor: const Color(0xFF22C55E),
-                            duration: const Duration(seconds: 2),
-                          ),
+                        CustomNotification.show(
+                          context,
+                          title: 'Added to Cart',
+                          message:
+                              '${_quantity}x ${widget.product.name} is waiting for you.',
                         );
 
                         Navigator.pop(context);
