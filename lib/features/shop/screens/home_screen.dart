@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../../../core/mock_data.dart';
 import '../widgets/home_components.dart';
 import 'product_list_screen.dart';
+import '../../search/screens/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -102,7 +103,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Color.fromARGB(255, 26, 30, 104), Color.fromARGB(255, 9, 1, 52)],
+                  colors: [
+                    Color.fromARGB(255, 26, 30, 104),
+                    Color.fromARGB(255, 9, 1, 52),
+                  ],
                 ),
               ),
               child: FlexibleSpaceBar(
@@ -113,41 +117,68 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: BackdropFilter(
-                              filter: ImageFilter.blur(
-                                sigmaX: 8.0,
-                                sigmaY: 8.0,
-                              ),
-                              child: Container(
-                                height: 42,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder:
+                                      (
+                                        context,
+                                        animation,
+                                        secondaryAnimation,
+                                      ) => const SearchScreen(),
+                                  transitionsBuilder:
+                                      (
+                                        context,
+                                        animation,
+                                        secondaryAnimation,
+                                        child,
+                                      ) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: child,
+                                        );
+                                      },
                                 ),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.15),
-                                  borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(
-                                    color: Colors.white.withOpacity(0.25),
+                              );
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: BackdropFilter(
+                                filter: ImageFilter.blur(
+                                  sigmaX: 8.0,
+                                  sigmaY: 8.0,
+                                ),
+                                child: Container(
+                                  height: 42,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
                                   ),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.search,
-                                      color: Colors.white.withOpacity(0.7),
-                                      size: 18,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.15),
+                                    borderRadius: BorderRadius.circular(100),
+                                    border: Border.all(
+                                      color: Colors.white.withOpacity(0.25),
                                     ),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      'Search products...',
-                                      style: TextStyle(
-                                        color: Colors.white.withOpacity(0.6),
-                                        fontSize: 13,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.search,
+                                        color: Colors.white.withOpacity(0.7),
+                                        size: 18,
                                       ),
-                                    ),
-                                  ],
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        'Search products...',
+                                        style: TextStyle(
+                                          color: Colors.white.withOpacity(0.6),
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

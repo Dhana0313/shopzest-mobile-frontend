@@ -3,6 +3,7 @@ import '../models/product.dart';
 import '../screens/product_detail_screen.dart';
 import '../screens/product_list_screen.dart';
 import '../../../core/mock_data.dart';
+import '../../search/screens/search_screen.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -57,20 +58,34 @@ class HomeHeader extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Container(
-                  height: 42,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(color: Colors.white.withOpacity(0.08)),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.search, color: Colors.white.withOpacity(0.5), size: 18),
-                      const SizedBox(width: 10),
-                      Text('Search products...', style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 13)),
-                    ],
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) => const SearchScreen(),
+                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                          // A smooth fade transition looks best for search screens
+                          return FadeTransition(opacity: animation, child: child);
+                        },
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 42,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: Colors.white.withOpacity(0.08)),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.search, color: Colors.white.withOpacity(0.5), size: 18),
+                        const SizedBox(width: 10),
+                        Text('Search products...', style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 13)),
+                      ],
+                    ),
                   ),
                 ),
               ),
