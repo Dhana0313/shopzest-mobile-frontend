@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../features/shop/screens/home_screen.dart';
 import '../../features/cart/screens/cart_screen.dart';
+import '../../features/profile/screens/profile_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/cart_provider.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -15,7 +18,7 @@ class _MainLayoutState extends State<MainLayout> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const CartScreen(),
-    const Center(child: Text('Profile Screen Pending')),
+    const ProfileScreen(),
   ];
 
   @override
@@ -38,13 +41,25 @@ class _MainLayoutState extends State<MainLayout> {
           unselectedItemColor: const Color(0xFF9898B5),
           showSelectedLabels: true,
           showUnselectedLabels: true,
-          selectedLabelStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-          unselectedLabelStyle: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+          selectedLabelStyle: const TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+          ),
           elevation: 0,
           items: [
             const BottomNavigationBarItem(
-              icon: Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(Icons.home_outlined)),
-              activeIcon: Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(Icons.home)),
+              icon: Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Icon(Icons.home_outlined),
+              ),
+              activeIcon: Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Icon(Icons.home),
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
@@ -54,15 +69,26 @@ class _MainLayoutState extends State<MainLayout> {
                   clipBehavior: Clip.none,
                   children: [
                     const Icon(Icons.shopping_cart_outlined),
-                    Positioned(
-                      right: -6,
-                      top: -4,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(color: Color(0xFFFF6B35), shape: BoxShape.circle),
-                        child: const Text('3', style: TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold)),
+                    if (context.watch<CartProvider>().itemCount > 0)
+                      Positioned(
+                        right: -6,
+                        top: -4,
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFFF6B35),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            '${context.watch<CartProvider>().itemCount}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 8,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    )
                   ],
                 ),
               ),
@@ -72,23 +98,40 @@ class _MainLayoutState extends State<MainLayout> {
                   clipBehavior: Clip.none,
                   children: [
                     const Icon(Icons.shopping_cart),
-                    Positioned(
-                      right: -6,
-                      top: -4,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(color: Color(0xFFFF6B35), shape: BoxShape.circle),
-                        child: const Text('3', style: TextStyle(color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold)),
+                    if (context.watch<CartProvider>().itemCount > 0)
+                      Positioned(
+                        right: -6,
+                        top: -4,
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFFF6B35),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            '${context.watch<CartProvider>().itemCount}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 8,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    )
                   ],
                 ),
               ),
               label: 'Cart',
             ),
             const BottomNavigationBarItem(
-              icon: Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(Icons.person_outline)),
-              activeIcon: Padding(padding: EdgeInsets.only(bottom: 4), child: Icon(Icons.person)),
+              icon: Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Icon(Icons.person_outline),
+              ),
+              activeIcon: Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Icon(Icons.person),
+              ),
               label: 'Profile',
             ),
           ],

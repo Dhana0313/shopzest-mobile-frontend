@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'features/auth/screens/login_screen.dart';
+import 'package:provider/provider.dart';
+import 'core/layout/main_layout.dart';
+import 'core/providers/cart_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -12,15 +20,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Simple Shop',
+      title: 'ShopZest',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        // Apply Google Fonts to the entire app's text theme
-        textTheme: GoogleFonts.interTextTheme(
-          Theme.of(context).textTheme,
-        ),
+        fontFamily: 'DMSans',
+        scaffoldBackgroundColor: const Color(0xFFF7F6FF),
       ),
-      home: const LoginScreen(),
+      home: const MainLayout(),
     );
   }
 }
