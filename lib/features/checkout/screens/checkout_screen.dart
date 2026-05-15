@@ -1,79 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/providers/cart_provider.dart';
-import 'order_success_screen.dart';
+import '../widgets/checkout_components.dart';
+import 'payment_screen.dart';
 
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
-
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: Color(0xFF1A1A2E),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSelectionCard({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required Color iconColor,
-    required Color bgColor,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFEEEEF5)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              color: bgColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(icon, color: iconColor, size: 20),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF1A1A2E),
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF9898B5),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Icon(Icons.check_circle, color: Color(0xFF22C55E), size: 22),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,124 +38,32 @@ class CheckoutScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildSectionHeader('Shipping Address'),
-                  _buildSelectionCard(
+                  const CheckoutSectionHeader(title: 'Shipping Address'),
+                  const CheckoutSelectionCard(
                     icon: Icons.location_on,
-                    iconColor: const Color(0xFFFF6B35),
-                    bgColor: const Color(0xFFFFF0EB),
+                    iconColor: Color(0xFFFF6B35),
+                    bgColor: Color(0xFFFFF0EB),
                     title: 'Home Address',
                     subtitle: '123 Tech Park Avenue,\nSuite 400, NY 10001',
                   ),
                   const SizedBox(height: 24),
 
-                  _buildSectionHeader('Payment Method'),
-                  _buildSelectionCard(
+                  const CheckoutSectionHeader(title: 'Payment Method'),
+                  const CheckoutSelectionCard(
                     icon: Icons.credit_card,
-                    iconColor: const Color(0xFF2196F3),
-                    bgColor: const Color(0xFFEBF4FF),
-                    title: 'Visa ending in 4242',
-                    subtitle: 'Exp: 12/28',
+                    iconColor: Color(0xFF2196F3),
+                    bgColor: Color(0xFFEBF4FF),
+                    title: 'Credit or Debit Card',
+                    subtitle: 'Add details on next step',
                   ),
                   const SizedBox(height: 24),
 
-                  _buildSectionHeader('Order Summary'),
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0xFFEEEEF5)),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Items (${cartProvider.itemCount})',
-                              style: const TextStyle(
-                                color: Color(0xFF9898B5),
-                                fontSize: 13,
-                              ),
-                            ),
-                            Text(
-                              '\$${cartProvider.subtotal.toStringAsFixed(2)}',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Discount',
-                              style: TextStyle(
-                                color: Color(0xFF9898B5),
-                                fontSize: 13,
-                              ),
-                            ),
-                            Text(
-                              '-\$${cartProvider.discount.toStringAsFixed(2)}',
-                              style: const TextStyle(
-                                color: Color(0xFF22C55E),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'Delivery',
-                              style: TextStyle(
-                                color: Color(0xFF9898B5),
-                                fontSize: 13,
-                              ),
-                            ),
-                            Text(
-                              'Free',
-                              style: TextStyle(
-                                color: Color(0xFF22C55E),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12),
-                          child: Divider(color: Color(0xFFEEEEF5), height: 1),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Total',
-                              style: TextStyle(
-                                color: Color(0xFF1A1A2E),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              '\$${cartProvider.total.toStringAsFixed(2)}',
-                              style: const TextStyle(
-                                color: Color(0xFFFF6B35),
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  const CheckoutSectionHeader(title: 'Order Summary'),
+                  OrderSummaryCard(
+                    itemCount: cartProvider.itemCount,
+                    subtotal: cartProvider.subtotal,
+                    discount: cartProvider.discount,
+                    total: cartProvider.total,
                   ),
                 ],
               ),
@@ -237,11 +77,10 @@ class CheckoutScreen extends StatelessWidget {
             ),
             child: GestureDetector(
               onTap: () {
-                context.read<CartProvider>().clearCart();
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const OrderSuccessScreen(),
+                    builder: (context) => const PaymentScreen(),
                   ),
                 );
               },
@@ -261,7 +100,7 @@ class CheckoutScreen extends StatelessWidget {
                 ),
                 child: const Center(
                   child: Text(
-                    'Place Order',
+                    'Proceed to Payment',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
