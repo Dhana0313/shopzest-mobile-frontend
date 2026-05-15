@@ -114,6 +114,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
             ),
             DetailBottomBar(
+              product: widget.product,
               totalPrice: widget.product.price * _quantity,
               onAddToCart: _handleAddToCart,
             ),

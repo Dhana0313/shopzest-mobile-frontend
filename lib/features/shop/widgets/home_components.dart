@@ -5,6 +5,10 @@ import '../screens/product_list_screen.dart';
 import '../../../core/mock_data.dart';
 import '../../search/screens/search_screen.dart';
 
+import 'package:provider/provider.dart';
+import '../../../core/providers/wishlist_provider.dart';
+import '../../../core/utils/custom_notification.dart';
+
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
 
@@ -21,9 +25,19 @@ class HomeHeader extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  Text('Good Morning', style: TextStyle(color: Colors.white60, fontSize: 12)),
+                  Text(
+                    'Good Morning',
+                    style: TextStyle(color: Colors.white60, fontSize: 12),
+                  ),
                   SizedBox(height: 4),
-                  Text('Hey, Alex!', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text(
+                    'Hey, Alex!',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               Stack(
@@ -33,9 +47,20 @@ class HomeHeader extends StatelessWidget {
                     height: 38,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      gradient: LinearGradient(colors: [Color(0xFFFF6B35), Color(0xFFFF9A76)]),
+                      gradient: LinearGradient(
+                        colors: [Color(0xFFFF6B35), Color(0xFFFF9A76)],
+                      ),
                     ),
-                    child: const Center(child: Text('AJ', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14))),
+                    child: const Center(
+                      child: Text(
+                        'AJ',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
                   ),
                   Positioned(
                     right: 0,
@@ -46,12 +71,15 @@ class HomeHeader extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: const Color(0xFF22C55E),
                         shape: BoxShape.circle,
-                        border: Border.all(color: const Color(0xFF1A1A2E), width: 2),
+                        border: Border.all(
+                          color: const Color(0xFF1A1A2E),
+                          width: 2,
+                        ),
                       ),
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
           const SizedBox(height: 14),
@@ -63,11 +91,16 @@ class HomeHeader extends StatelessWidget {
                     Navigator.push(
                       context,
                       PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) => const SearchScreen(),
-                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                          // A smooth fade transition looks best for search screens
-                          return FadeTransition(opacity: animation, child: child);
-                        },
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            const SearchScreen(),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                              // A smooth fade transition looks best for search screens
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
                       ),
                     );
                   },
@@ -81,9 +114,19 @@ class HomeHeader extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.search, color: Colors.white.withOpacity(0.5), size: 18),
+                        Icon(
+                          Icons.search,
+                          color: Colors.white.withOpacity(0.5),
+                          size: 18,
+                        ),
                         const SizedBox(width: 10),
-                        Text('Search products...', style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 13)),
+                        Text(
+                          'Search products...',
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.4),
+                            fontSize: 13,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -100,7 +143,7 @@ class HomeHeader extends StatelessWidget {
                 child: const Icon(Icons.tune, color: Colors.white, size: 20),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -115,20 +158,19 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 90, 
+      height: 90,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final cat = categories[index];
-          final isActive = cat['active'] as bool;
           final label = cat['label'] as String;
-          
+
           return GestureDetector(
             onTap: () {
               List<Product> categoryProducts;
-              
+
               switch (label) {
                 case 'Shoes':
                   categoryProducts = mockShoes;
@@ -167,11 +209,14 @@ class CategoryList extends StatelessWidget {
                     width: 52,
                     height: 52,
                     decoration: BoxDecoration(
-                      color: isActive ? const Color(0xFFFF6B35) : cat['color'] as Color,
+                      color: cat['color'] as Color,
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Center(
-                      child: Text(cat['icon'] as String, style: const TextStyle(fontSize: 22)),
+                      child: Text(
+                        cat['icon'] as String,
+                        style: const TextStyle(fontSize: 22),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 6),
@@ -181,9 +226,9 @@ class CategoryList extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
-                      color: isActive ? const Color(0xFFFF6B35) : const Color(0xFF4A4A6A),
+                      color: const Color(0xFF4A4A6A),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -193,9 +238,10 @@ class CategoryList extends StatelessWidget {
     );
   }
 }
+
 class SectionHeader extends StatelessWidget {
   final String title;
-  final VoidCallback? onSeeAll; 
+  final VoidCallback? onSeeAll;
 
   const SectionHeader({super.key, required this.title, this.onSeeAll});
 
@@ -206,11 +252,25 @@ class SectionHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1A1A2E))),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF1A1A2E),
+            ),
+          ),
           if (onSeeAll != null)
             GestureDetector(
               onTap: onSeeAll,
-              child: const Text('See all', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFFFF6B35))),
+              child: const Text(
+                'See all',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFFF6B35),
+                ),
+              ),
             ),
         ],
       ),
@@ -247,32 +307,79 @@ class ProductCard extends StatelessWidget {
               height: 110,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 215, 216, 214),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(15),
+                ),
               ),
               child: Stack(
                 children: [
-                  Center(child: Text(product.emoji, style: const TextStyle(fontSize: 40))),
+                  Center(
+                    child: Text(
+                      product.emoji,
+                      style: const TextStyle(fontSize: 40),
+                    ),
+                  ),
                   if (product.discountBadge != null)
                     Positioned(
                       top: 8,
                       left: 8,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFFF6B35),
                           borderRadius: BorderRadius.circular(100),
                         ),
-                        child: Text(product.discountBadge!, style: const TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+                        child: Text(
+                          product.discountBadge!,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   Positioned(
                     top: 8,
                     right: 8,
-                    child: Container(
-                      width: 28,
-                      height: 28,
-                      decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-                      child: const Icon(Icons.favorite_border, size: 14, color: Color(0xFF9898B5)),
+                    child: GestureDetector(
+                      onTap: () {
+                        final provider = context.read<WishlistProvider>();
+                        provider.toggleWishlist(product);
+
+                        if (provider.isInWishlist(product.id)) {
+                          CustomNotification.show(
+                            context,
+                            title: 'Saved to Wishlist',
+                            message: '${product.name} has been saved.',
+                          );
+                        }
+                      },
+                      child: Container(
+                        width: 28,
+                        height: 28,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          context.watch<WishlistProvider>().isInWishlist(
+                                product.id,
+                              )
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          size: 14,
+                          color:
+                              context.watch<WishlistProvider>().isInWishlist(
+                                product.id,
+                              )
+                              ? const Color(0xFFFF4E7C)
+                              : const Color(0xFF9898B5),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -283,15 +390,37 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(product.name, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black), maxLines: 1, overflow: TextOverflow.ellipsis),
+                  Text(
+                    product.name,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   const SizedBox(height: 4),
-                  Text(product.brand, style: const TextStyle(fontSize: 10, color: Colors.black)),
+                  Text(
+                    product.brand,
+                    style: const TextStyle(fontSize: 10, color: Colors.black),
+                  ),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      const Icon(Icons.star, color: Color(0xFFFFC107), size: 12),
+                      const Icon(
+                        Icons.star,
+                        color: Color(0xFFFFC107),
+                        size: 12,
+                      ),
                       const SizedBox(width: 4),
-                      Text('${product.rating} (${product.reviews})', style: const TextStyle(fontSize: 10, color: Colors.black)),
+                      Text(
+                        '${product.rating} (${product.reviews})',
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: Colors.black,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -301,22 +430,43 @@ class ProductCard extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('\$${product.price}', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black)),
+                          Text(
+                            '\$${product.price}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
                           if (product.oldPrice != null)
-                            Text('\$${product.oldPrice}', style: const TextStyle(fontSize: 10, color: Colors.black, decoration: TextDecoration.lineThrough)),
+                            Text(
+                              '\$${product.oldPrice}',
+                              style: const TextStyle(
+                                fontSize: 10,
+                                color: Colors.black,
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                            ),
                         ],
                       ),
                       Container(
                         width: 28,
                         height: 28,
-                        decoration: BoxDecoration(color: const Color(0xFFFF6B35), borderRadius: BorderRadius.circular(8)),
-                        child: const Icon(Icons.add, color: Colors.white, size: 16),
-                      )
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFF6B35),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 16,
+                        ),
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -363,7 +513,10 @@ class PromoBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(100),
@@ -392,7 +545,10 @@ class PromoBanner extends StatelessWidget {
                 GestureDetector(
                   onTap: onClaim,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFFFF6B35),
                       borderRadius: BorderRadius.circular(100),
@@ -410,10 +566,7 @@ class PromoBanner extends StatelessWidget {
               ],
             ),
           ),
-          Text(
-            emoji,
-            style: const TextStyle(fontSize: 72),
-          ),
+          Text(emoji, style: const TextStyle(fontSize: 72)),
         ],
       ),
     );

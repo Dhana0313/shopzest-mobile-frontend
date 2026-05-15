@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../core/providers/wishlist_provider.dart';
 import '../widgets/profile_components.dart';
+import 'wishlist_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -18,9 +21,9 @@ class ProfileScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  MenuGroupTitle(title: 'Shopping'),
-                  ProfileMenuItem(
+                children: [
+                  const MenuGroupTitle(title: 'Shopping'),
+                  const ProfileMenuItem(
                     icon: Icons.inventory_2_outlined,
                     iconColor: Color(0xFFFF6B35),
                     bgColor: Color(0xFFFFF0EB),
@@ -28,37 +31,48 @@ class ProfileScreen extends StatelessWidget {
                     subtitle: 'Track, return or buy again',
                     badgeText: '2 active',
                   ),
-                  ProfileMenuItem(
-                    icon: Icons.favorite_border,
-                    iconColor: Color(0xFF9C27B0),
-                    bgColor: Color(0xFFF4EBFF),
-                    title: 'Wishlist',
-                    subtitle: '8 saved items',
+                  
+                  
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const WishlistScreen()),
+                      );
+                    },
+                    child: ProfileMenuItem(
+                      icon: Icons.favorite_border,
+                      iconColor: const Color(0xFF9C27B0),
+                      bgColor: const Color(0xFFF4EBFF),
+                      title: 'Wishlist',
+                      subtitle: '${context.watch<WishlistProvider>().itemCount} saved items',
+                    ),
                   ),
-                  SizedBox(height: 8),
-                  MenuGroupTitle(title: 'Account'),
-                  ProfileMenuItem(
+                  
+                  const SizedBox(height: 8),
+                  const MenuGroupTitle(title: 'Account'),
+                  const ProfileMenuItem(
                     icon: Icons.location_on_outlined,
                     iconColor: Color(0xFF2196F3),
                     bgColor: Color(0xFFEBF4FF),
                     title: 'Saved Addresses',
                     subtitle: 'Home, Work',
                   ),
-                  ProfileMenuItem(
+                  const ProfileMenuItem(
                     icon: Icons.credit_card_outlined,
                     iconColor: Color(0xFF4CAF50),
                     bgColor: Color(0xFFEDFFF4),
                     title: 'Payment Methods',
                     subtitle: 'Visa •••• 4242',
                   ),
-                  ProfileMenuItem(
+                  const ProfileMenuItem(
                     icon: Icons.notifications_outlined,
                     iconColor: Color(0xFFFF6B35),
                     bgColor: Color(0xFFFFF0EB),
                     title: 'Notifications',
                     subtitle: 'Manage preferences',
                   ),
-                  ProfileMenuItem(
+                  const ProfileMenuItem(
                     icon: Icons.logout,
                     iconColor: Color(0xFFF44336),
                     bgColor: Color(0xFFFFEBEB),
@@ -66,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
                     subtitle: 'See you soon!',
                     titleColor: Color(0xFFF44336),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                 ],
               ),
             ),

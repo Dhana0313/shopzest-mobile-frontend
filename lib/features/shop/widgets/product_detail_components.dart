@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
+import 'package:provider/provider.dart';
+import '../../../core/providers/wishlist_provider.dart';
 
 class DetailAppBar extends StatelessWidget {
   const DetailAppBar({super.key});
@@ -434,17 +436,21 @@ class DetailBenefits extends StatelessWidget {
 }
 
 class DetailBottomBar extends StatelessWidget {
+  final Product product;
   final double totalPrice;
   final VoidCallback onAddToCart;
 
   const DetailBottomBar({
     super.key,
+    required this.product, 
     required this.totalPrice,
     required this.onAddToCart,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isSaved = context.watch<WishlistProvider>().isInWishlist(product.id);
+
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
       decoration: const BoxDecoration(
@@ -453,17 +459,26 @@ class DetailBottomBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: const Color(0xFFF7F6FF),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: const Icon(
-              Icons.favorite_border,
-              color: Color(0xFF4A4A6A),
-              size: 20,
+          GestureDetector(
+            onTap: () {
+              context.read<WishlistProvider>().toggleWishlist(product);
+            },
+            child: Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: isSaved
+                    ? const Color(0xFFFFEBEB)
+                    : const Color(0xFFF7F6FF),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Icon(
+                isSaved ? Icons.favorite : Icons.favorite_border,
+                color: isSaved
+                    ? const Color(0xFFFF4E7C)
+                    : const Color(0xFF4A4A6A),
+                size: 20,
+              ),
             ),
           ),
           const SizedBox(width: 12),
