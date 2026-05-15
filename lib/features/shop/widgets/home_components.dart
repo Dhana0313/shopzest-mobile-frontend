@@ -314,9 +314,12 @@ class ProductCard extends StatelessWidget {
               child: Stack(
                 children: [
                   Center(
-                    child: Text(
-                      product.emoji,
-                      style: const TextStyle(fontSize: 40),
+                    child: Hero(
+                      tag: 'product-${product.id}',
+                      child: Material(
+                        color: Colors.transparent, 
+                        child: Text(product.emoji, style: const TextStyle(fontSize: 40)),
+                      ),
                     ),
                   ),
                   if (product.discountBadge != null)

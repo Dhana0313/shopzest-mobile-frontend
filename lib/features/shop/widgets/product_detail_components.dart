@@ -67,7 +67,16 @@ class DetailHeroImage extends StatelessWidget {
       child: Stack(
         children: [
           Center(
-            child: Text(product.emoji, style: const TextStyle(fontSize: 80)),
+            child: Hero(
+              tag: 'product-${product.id}',
+              child: Material(
+                color: Colors.transparent,
+                child: Text(
+                  product.emoji,
+                  style: const TextStyle(fontSize: 80),
+                ),
+              ),
+            ),
           ),
           if (product.discountBadge != null)
             Positioned(
@@ -442,7 +451,7 @@ class DetailBottomBar extends StatelessWidget {
 
   const DetailBottomBar({
     super.key,
-    required this.product, 
+    required this.product,
     required this.totalPrice,
     required this.onAddToCart,
   });
