@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'core/layout/main_layout.dart';
 import 'core/providers/cart_provider.dart';
 import 'core/providers/wishlist_provider.dart';
+import 'core/providers/auth_provider.dart';
+import 'features/auth/screens/login_screen.dart';
 
 void main() {
   runApp(
@@ -10,6 +12,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => WishlistProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
       child: const MyApp(),
     ),
@@ -28,7 +31,15 @@ class MyApp extends StatelessWidget {
         fontFamily: 'DMSans',
         scaffoldBackgroundColor: const Color(0xFFF7F6FF),
       ),
-      home: const MainLayout(),
+      home: Consumer<AuthProvider>(
+        builder: (context, auth, child) {
+          if (auth.isLoggedIn) {
+            return const MainLayout();
+          } else {
+            return const LoginScreen();
+          }
+        },
+      ),
     );
   }
 }

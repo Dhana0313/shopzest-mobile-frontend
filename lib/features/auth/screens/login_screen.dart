@@ -3,6 +3,8 @@ import '../../../core/layout/main_layout.dart';
 import '../widgets/auth_components.dart';
 import '../services/mock_auth_service.dart';
 import 'signup_screen.dart';
+import 'package:provider/provider.dart';
+import '../../../core/providers/auth_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -63,6 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     if (result['success']) {
+      context.read<AuthProvider>().login();
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(result['message']), backgroundColor: Colors.green),
       );

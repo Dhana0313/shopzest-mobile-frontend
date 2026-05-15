@@ -4,6 +4,9 @@ import '../../../core/providers/wishlist_provider.dart';
 import '../widgets/profile_components.dart';
 import 'wishlist_screen.dart';
 import 'order_history_screen.dart';
+import '../../../core/providers/auth_provider.dart';
+import '../../../core/providers/cart_provider.dart';
+import '../../auth/screens/login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -85,13 +88,29 @@ class ProfileScreen extends StatelessWidget {
                     title: 'Notifications',
                     subtitle: 'Manage preferences',
                   ),
-                  const ProfileMenuItem(
-                    icon: Icons.logout,
-                    iconColor: Color(0xFFF44336),
-                    bgColor: Color(0xFFFFEBEB),
-                    title: 'Log Out',
-                    subtitle: 'See you soon!',
-                    titleColor: Color(0xFFF44336),
+                  GestureDetector(
+                    onTap: () {
+                      context.read<AuthProvider>().logout();
+
+                      context.read<CartProvider>().clearCart();
+
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                        (Route<dynamic> route) =>
+                            false, // This false means "remove all previous screens"
+                      );
+                    },
+                    child: const ProfileMenuItem(
+                      icon: Icons.logout,
+                      iconColor: Color(0xFFF44336),
+                      bgColor: Color(0xFFFFEBEB),
+                      title: 'Log Out',
+                      subtitle: 'See you soon!',
+                      titleColor: Color(0xFFF44336),
+                    ),
                   ),
                   const SizedBox(height: 24),
                 ],
