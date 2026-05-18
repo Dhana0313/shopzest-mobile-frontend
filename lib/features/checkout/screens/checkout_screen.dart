@@ -3,9 +3,17 @@ import 'package:provider/provider.dart';
 import '../../../core/providers/cart_provider.dart';
 import '../widgets/checkout_components.dart';
 import 'payment_screen.dart';
+import 'map_selection_screen.dart';
 
-class CheckoutScreen extends StatelessWidget {
+class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
+
+  @override
+  State<CheckoutScreen> createState() => _CheckoutScreenState();
+}
+
+class _CheckoutScreenState extends State<CheckoutScreen> {
+  String _selectedAddress = '123 Tech Park Avenue,\nSuite 400, NY 10001';
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +47,26 @@ class CheckoutScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const CheckoutSectionHeader(title: 'Shipping Address'),
-                  const CheckoutSelectionCard(
+                  CheckoutSelectionCard(
                     icon: Icons.location_on,
-                    iconColor: Color(0xFFFF6B35),
-                    bgColor: Color(0xFFFFF0EB),
+                    iconColor: const Color(0xFFFF6B35),
+                    bgColor: const Color(0xFFFFF0EB),
                     title: 'Home Address',
-                    subtitle: '123 Tech Park Avenue,\nSuite 400, NY 10001',
+                    subtitle: _selectedAddress,
+                    onTap: () async {
+                      final newAddress = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MapSelectionScreen(),
+                        ),
+                      );
+
+                      if (newAddress != null && newAddress is String) {
+                        setState(() {
+                          _selectedAddress = newAddress;
+                        });
+                      }
+                    },
                   ),
                   const SizedBox(height: 24),
 
