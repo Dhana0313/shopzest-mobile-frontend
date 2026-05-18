@@ -7,6 +7,7 @@ import '../../search/screens/search_screen.dart';
 
 import 'package:provider/provider.dart';
 import '../../../core/providers/wishlist_provider.dart';
+import '../../../core/providers/cart_provider.dart';
 import '../../../core/utils/custom_notification.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -317,8 +318,11 @@ class ProductCard extends StatelessWidget {
                     child: Hero(
                       tag: 'product-${product.id}',
                       child: Material(
-                        color: Colors.transparent, 
-                        child: Text(product.emoji, style: const TextStyle(fontSize: 40)),
+                        color: Colors.transparent,
+                        child: Text(
+                          product.emoji,
+                          style: const TextStyle(fontSize: 40),
+                        ),
                       ),
                     ),
                   ),
@@ -452,17 +456,32 @@ class ProductCard extends StatelessWidget {
                             ),
                         ],
                       ),
-                      Container(
-                        width: 28,
-                        height: 28,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFFF6B35),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 16,
+                      GestureDetector(
+                        onTap: () {
+                          context.read<CartProvider>().addItem(
+                            product,
+                            'Standard',
+                            1,
+                          );
+
+                          CustomNotification.show(
+                            context,
+                            title: 'Added to Cart',
+                            message: '${product.name} has been added.',
+                          );
+                        },
+                        child: Container(
+                          width: 28,
+                          height: 28,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFF6B35),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 16,
+                          ),
                         ),
                       ),
                     ],
